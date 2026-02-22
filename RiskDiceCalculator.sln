@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiskDiceCalculator", "RiskDiceCalculator\RiskDiceCalculator.csproj", "{FAD45547-D18E-4AF3-A571-40637537F51D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiskDiceCalculator.Tests", "RiskDiceCalculator.Tests\RiskDiceCalculator.Tests.csproj", "{3FAB02B7-BB1D-4B97-8238-A540E0063CA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAD45547-D18E-4AF3-A571-40637537F51D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAD45547-D18E-4AF3-A571-40637537F51D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAD45547-D18E-4AF3-A571-40637537F51D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAD45547-D18E-4AF3-A571-40637537F51D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FAB02B7-BB1D-4B97-8238-A540E0063CA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FAB02B7-BB1D-4B97-8238-A540E0063CA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FAB02B7-BB1D-4B97-8238-A540E0063CA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FAB02B7-BB1D-4B97-8238-A540E0063CA0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CADABFCD-7840-4FED-9DCD-FA71518335D0}
+	EndGlobalSection
+EndGlobal

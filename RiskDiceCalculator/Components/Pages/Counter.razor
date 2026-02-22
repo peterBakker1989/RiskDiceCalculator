@@ -1,0 +1,40 @@
+﻿@page "/counter"
+@rendermode InteractiveServer
+@using RiskDiceCalculator.Components.Services
+@inject Fight Fight
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count attacker: @armySizes.currentCountAttacker</p>
+<p role="status">Current count defender: @armySizes.currentCountDefender</p>
+
+<button class="btn btn-primary" @onclick='() => ChangeAmount(1, "attacker")'>Click me to increase attacker</button>
+<button class="btn btn-primary" @onclick='() => ChangeAmount(-1, "attacker")'>Clik me to decrease attacker</button>
+<button class="btn btn-primary" @onclick='() => ChangeAmount(1, "defender")'>Click me to increase defender</button>
+<button class="btn btn-primary" @onclick='() => ChangeAmount(-1, "defender")'>Clik me to decrease defender</button>
+<button class="btn btn=primary" @onclick='FightOnRound'>Click to Fight</button>
+
+
+@code {
+    private (int currentCountAttacker, int currentCountDefender) armySizes = (0,0);
+
+
+    private void ChangeAmount(int amount, string type )
+    {
+        if(type == "attacker")
+        {
+            armySizes.currentCountAttacker += amount;
+        }
+        else if(type == "defender")
+        {
+            armySizes.currentCountDefender += amount;
+        }
+    }
+
+    private void FightOnRound()
+    {
+        armySizes = Fight.Fights(armySizes.currentCountAttacker, armySizes.currentCountDefender);
+    }
+
+}
