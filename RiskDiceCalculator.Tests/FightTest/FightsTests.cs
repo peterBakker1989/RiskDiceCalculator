@@ -2,11 +2,11 @@
 
 namespace RiskDiceCalculator.Tests
 {
-    public class Fights
+    public class FightsTests
     {
         private readonly Fight _fight;
 
-        public Fights()
+        public FightsTests()
         {
             _fight = new Fight();
         }
@@ -15,7 +15,7 @@ namespace RiskDiceCalculator.Tests
         public void ThrowErrorWhenAttackerArmySizeIs0()
         {
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
-                _fight.Fights(0, 1));
+                _fight.SingleFight((0, 1)));
 
             Assert.Equal("attackerArmy", exception.ParamName);
         }
@@ -23,14 +23,14 @@ namespace RiskDiceCalculator.Tests
         public void ThrowErrorWhenDefenderArmySizeIs0()
         {
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            _fight.Fights(1, 0));
+            _fight.SingleFight((1, 0)));
 
             Assert.Equal("defenderArmy", exception.ParamName);
         }
         [Fact]
         public void OnlyOneSoldierDiesWhenAttackerSizeis1()
         {
-            (int attackerArmy, int defenderArmy) = _fight.Fights(1, 3);
+            (int attackerArmy, int defenderArmy) = _fight.SingleFight((1, 3));
 
             Assert.Equal(attackerArmy + defenderArmy, 3);
             Assert.True(attackerArmy == 0 ^ defenderArmy == 2);
@@ -39,7 +39,7 @@ namespace RiskDiceCalculator.Tests
         [Fact]
         public void OnlyOneSoldierDiesWhenDefenderSizeIs1()
         {
-            (int attackerArmy, int defenderArmy) = _fight.Fights(3, 1);
+            (int attackerArmy, int defenderArmy) = _fight.SingleFight((3, 1));
 
             Assert.Equal(attackerArmy + defenderArmy, 3);
             Assert.True(attackerArmy == 2 ^ defenderArmy ==0);
@@ -47,7 +47,7 @@ namespace RiskDiceCalculator.Tests
         [Fact]
         public void OneOrTwoSoldiersDieWHenDefenderAndAttackerSizeIsAbove1()
         {
-            (int attackerArmy, int defenderArmy) = _fight.Fights(3, 3);
+            (int attackerArmy, int defenderArmy) = _fight.SingleFight((3, 3));
 
             Assert.InRange(attackerArmy + defenderArmy, 4, 5);
             Assert.InRange(attackerArmy, 1, 3);

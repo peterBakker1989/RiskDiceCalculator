@@ -1,40 +1,91 @@
-﻿@page "/risk"
+﻿@page "/Risk"
 @rendermode InteractiveServer
 @using RiskDiceCalculator.Components.Services
 @inject Fight Fight
-<PageTitle>risk dice calculator</PageTitle>
+<PageTitle>Risk</PageTitle>
 
-<h1>Counter</h1>
+<h1>Risk</h1>
 
-<p role="status">Current count attacker: @armySizes.currentCountAttacker</p>
-<p role="status">Current count defender: @armySizes.currentCountDefender</p>
+<p>
+    Attacker army:
+    <InputNumber @bind-Value="currentCountAttacker" class="form-control" />
+</p>
+
+<p>
+    Defender army:
+    <InputNumber @bind-Value="currentCountDefender" class="form-control" />
+</p>
+
+<p role="status">Current count attacker: @currentCountAttacker</p>
+<p role="status">Current count defender: @currentCountDefender</p>
 
 <button class="btn btn-primary" @onclick='() => ChangeAmount(1, "attacker")'>Click me to increase attacker</button>
 <button class="btn btn-primary" @onclick='() => ChangeAmount(-1, "attacker")'>Clik me to decrease attacker</button>
 <button class="btn btn-primary" @onclick='() => ChangeAmount(1, "defender")'>Click me to increase defender</button>
 <button class="btn btn-primary" @onclick='() => ChangeAmount(-1, "defender")'>Clik me to decrease defender</button>
-<button class="btn btn=primary" @onclick='FightOnRound'>Click to Fight</button>
+<button class="btn btn-primary" @onclick='FightOneRound'>Click to Fight On round</button>
+<button class="btn btn-primary" @onclick='FightUntilEnd'>Click to Fight Until End</button>
+
+<p>Kansen voor verdediger</p>
+
+
+
 
 
 @code {
-    private (int currentCountAttacker, int currentCountDefender) armySizes = (0,0);
+    private int currentCountAttacker = 0;
+    private int currentCountDefender = 0;
+    private (int, int) armySizes;
+    private string? errorMessage;
 
 
     private void ChangeAmount(int amount, string type )
     {
         if(type == "attacker")
         {
-            armySizes.currentCountAttacker += amount;
+            currentCountAttacker += amount;
         }
         else if(type == "defender")
         {
-            armySizes.currentCountDefender += amount;
+            currentCountDefender += amount;
         }
     }
 
-    private void FightOnRound()
+    private void FightOneRound()
     {
-        armySizes = Fight.Fights(armySizes.currentCountAttacker, armySizes.currentCountDefender);
+        try
+        {
+            armySizes = Fight.SingleFight((currentCountAttacker, currentCountDefender));
+            errorMessage = null;
+            currentCountAttacker = armySizes.Item1;
+            currentCountDefender = armySizes.Item2;
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            errorMessage = ex.Message;
+        }
+     
     }
 
+    private void FightUntilEnd()
+    {
+        try
+        {
+            armySizes = Fight.FightTillDeath((currentCountAttacker, currentCountDefender));
+            errorMessage = null;
+            currentCountAttacker = armySizes.Item1;
+            currentCountDefender = armySizes.Item2;
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            errorMessage = ex.Message;
+        }
+    
+    }
+
+}
+
+@if (errorMessage != null)
+{
+    <p style="color:red">@errorMessage</p>
 }

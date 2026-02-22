@@ -3,17 +3,17 @@
     public class CalculateFights
     {
 
-        public (int, int) CalculationOfFightResults(int attackerArmy, int defenderArmy, List<int> attackerDice, List<int> defenderDice)
+        public (int, int) CalculationOfFightResults((int attackerArmy, int defenderArmy) armySize, List<int> attackerDice, List<int> defenderDice)
         {
-            if(attackerArmy <= 0)
+            if(armySize.attackerArmy <= 0)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(attackerArmy), "Aanvaller kan niet 0 legers hebben");
+                    nameof(armySize.attackerArmy), "Aanvaller kan niet 0 legers hebben");
             }
-            if(defenderArmy <= 0)
+            if(armySize.defenderArmy <= 0)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(defenderArmy), "Verdediger kan niet 0 legers hebben");
+                    nameof(armySize.defenderArmy), "Verdediger kan niet 0 legers hebben");
             }
             if (attackerDice.Count <= 0)
             {
@@ -27,16 +27,16 @@
             }
             if (attackerDice.Count >= 1 && defenderDice.Count >= 1)
             {
-                if (attackerDice[0] > defenderDice[0]) { defenderArmy--; }
-                else { attackerArmy--; }
+                if (attackerDice[0] > defenderDice[0]) { armySize.defenderArmy--; }
+                else { armySize.attackerArmy--; }
 
                 if (attackerDice.Count >= 2 && defenderDice.Count >= 2)
                 {
-                    if (attackerDice[1] > defenderDice[1]) { defenderArmy--; }
-                    else { attackerArmy--; }
+                    if (attackerDice[1] > defenderDice[1]) { armySize.defenderArmy--; }
+                    else { armySize.attackerArmy--; }
                 }
             }
-            return (attackerArmy, defenderArmy);
+            return (armySize.attackerArmy, armySize.defenderArmy);
         }
 
     }
